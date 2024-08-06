@@ -11,7 +11,11 @@ const forecast = ({latitude, longitude}, callback) => {
             callback('Error '+ body.error.code +'\nMessage: '+ body.error.message);
         } else {
             const data = body;
-            callback(undefined, 'It is curently '+ data.current.condition.text +'\nTemperature is '+ data.current.temp_c +' degrees but fees like '+ data.current.feelslike_c + ' degrees');
+            const currentText = data.current.condition.text;
+            const currentTemp = data.current.temp_c;
+            const currentFeelsLike = data.current.feelslike_c;
+            const forecastPrecipAmt = data.forecast.forecastday[0].day.daily_chance_of_rain;
+            callback(undefined, 'It is curently '+ currentText +'\nTemperature is '+ currentTemp +' degrees but feels like '+ currentFeelsLike + ' degrees. There is a '+ forecastPrecipAmt +'% chance of rain.');
         }
     });
 }
